@@ -1,14 +1,8 @@
 const mongoose = require('mongoose');
-const fs = require('fs');
-const AWS = require('aws-sdk');
 const config = require('./config/database');
 const express = require('express');
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
-const showFile = require('./lib/show3.js');
- 
-const listFile = require('./bin/upList.js');
-
+const showbyID = require('./modules/showID.js');
+const listFile = require('./modules/upList.js');
 const app = express();
 
 mongoose.connect(config.database);
@@ -24,8 +18,10 @@ app.get('/list', function(req, res) {
 });
 
 app.get('/show/:id', function(req, res) {
-  showFile.show(req.params.id);
-})
+  return showbyID.getShow(req.params.id).then(data => {
+    res.status(200).send(data)});
+  })
+
 
 var port = process.env.PORT || 5000;
 

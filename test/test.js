@@ -1,9 +1,7 @@
 let assert = require('assert');
-const listFile = require('../bin/upList.js');
+const listFile = require('../modules/upList.js');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema; 
-const chai = require('chai');
-const expect = chai.expect;
 
 const testSchema = new Schema({
     name: {
