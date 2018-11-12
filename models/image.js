@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+const dbConn = require('../lib/dbConn.js');
 
 
 let imageSchema = mongoose.Schema({
@@ -20,4 +21,5 @@ let imageSchema = mongoose.Schema({
   }
 });
 
-let Image = module.exports = mongoose.model('Image', imageSchema, 'images');
+let connection = dbConn.makeConn 
+let Image = module.exports = connection.model('Image', imageSchema, 'images');
