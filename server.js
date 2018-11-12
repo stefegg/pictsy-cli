@@ -1,16 +1,10 @@
-const mongoose = require('mongoose');
-const config = require('./config/database');
 const express = require('express');
 const showbyID = require('./modules/showID.js');
 const listFile = require('./modules/upList.js');
 const app = express();
+const dbConn = require('./lib/dbConn.js');
 
-mongoose.connect(config.database);
-let db = mongoose.connection;
-
-db.once('open', function(){
-  console.log('Connected to MongoDB');
-});
+dbConn.makeConn;
 
 app.get('/list', function(req, res) {
   return listFile.getList().then(data => {
@@ -28,3 +22,4 @@ var port = process.env.PORT || 5000;
 app.listen(port, function(){
   console.log('server started!')
 });
+

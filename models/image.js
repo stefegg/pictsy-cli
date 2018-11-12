@@ -20,4 +20,4 @@ let imageSchema = mongoose.Schema({
   }
 });
 
-let Image = module.exports = mongoose.model('Image', imageSchema);
+let Image = module.exports = mongoose.model('Image', imageSchema, 'images');
