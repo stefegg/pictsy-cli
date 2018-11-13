@@ -70,18 +70,6 @@ describe('Single Test', function () {
     })
 })
 
-
-// describe('Multi Tests', function() {
-//     before(function (done) {
-//         mongoose.connect(process.env.MONGO_TEST_PATH);
-//         const db = mongoose.connection;
-//         db.on('error', console.error.bind(console, 'connection error'));
-//         db.once('open', function(){
-//             console.log('We are connected to the test database!');
-//             done();
-//         })
-// })
-
 describe('Test database', function () {
     it('Two New Images saved to test database', function (done) {
         var testImage = TestImage({
@@ -105,14 +93,12 @@ describe('Test database', function () {
 
     })
 })
-// })
 
 describe('Test upload', function(){
     it('Uploads to s3 and inserts into mongo', async function () {
         let testFile = '../tree.jpg'
         const uploadTest = await upChain.upChain(testFile)
         assert(uploadTest.url.length > 0)
-        // assert(uploadTest._id.length > 0)
     })
 })
 
