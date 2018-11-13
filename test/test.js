@@ -1,102 +1,97 @@
-let assert = require('assert');
+const assert = require('assert');
 const listFile = require('../modules/upList.js');
+const showFile = require('../modules/showID.js');
+const upChain = require('../modules/upchain.js');
+const dbConn = require('../lib/dbConn.js');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema; 
+const Schema = mongoose.Schema;
 
-require('dotenv').config({ path: './env/.env' });
+require('dotenv').config({
+    path: './env/.env'
+});
 
 
 const testSchema = new Schema({
     name: {
         type: String,
         required: true
-      },
-      url: {
+    },
+    url: {
         type: String,
         required: true
-      },
-      date: {
+    },
+    date: {
         type: String,
         required: true
-      },
-      id: {
+    },
+    id: {
         type: String,
         required: true
-      }
+    }
 });
 
-const Image = mongoose.model('Image', testSchema);
+const TestImage = mongoose.model('TestImage', testSchema);
 
-describe('Single Test', function() {
-    before(function (done) {
-        mongoose.connect(process.env.MONGO_TEST_PATH);
-        const db = mongoose.connection;
-        db.on('error', console.error.bind(console, 'connection error'));
-        db.once('open', function(){
-            console.log('We are connected to the test database!');
-            done();
-        })
-})
+describe('Single Test', function () {
+    it('connects to the database', function () {
+        const connectDb = dbConn.makeConn
+        assert(connectDb.name == 'testDatabase')
+    })
 
-describe('Test database', function() {
-    it('New Image saved to test database', function(done) {
-        var testImage = Image({
-            name: 'TestImage',
-            url: 'www.test.com',
-            date: '121212',
-            id: '0'
-        });
-        testImage.save(done)
-    })
-    it('Dont save wrong format to db', function(done) {
-        var broKen = Image({
-            notName: 'Whatever',
-            notUrl: 'www.broken.org',
-            notDate: '9',
-            notId: 'nope'
+    describe('Test single insertion into database', function () {
+        it('New Image saved to test database', function (done) {
+            var testImage = TestImage({
+                name: 'TestImage',
+                url: 'www.test.com',
+                date: '121212',
+                id: '0'
+            });
+            testImage.save(done)
         })
-        broKen.save(err => {
-            if(err) {return done();}
-            throw new Error('Should make an error');
+        it('Dont save wrong format to db', function (done) {
+            var broKen = TestImage({
+                notName: 'Whatever',
+                notUrl: 'www.broken.org',
+                notDate: '9',
+                notId: 'nope'
+            })
+            broKen.save(err => {
+                if (err) {
+                    return done();
+                }
+                throw new Error('Insertion Error');
+            })
         })
-    })
-    it('Should retrevie data from DB', function(done) {
-        Image.find({id: '0'}, (err, name) => {
-            if(err) {throw err;}
-            if(name.length === 0) {throw new Error ('No Data!');}
-            done();
+        it('Should retrevie an item from DB by ID 0', async function () {
+            const showImages = await showFile.getShow('0')
+            assert(showImages[0].id == '0')
+
         })
     })
 })
 
-after(function(done){
-    mongoose.connection.db.dropDatabase(function(){
-        mongoose.connection.close(done);
-    })
-})
-});
 
-describe('Multi Tests', function() {
-    before(function (done) {
-        mongoose.connect(process.env.MONGO_TEST_PATH);
-        const db = mongoose.connection;
-        db.on('error', console.error.bind(console, 'connection error'));
-        db.once('open', function(){
-            console.log('We are connected to the test database!');
-            done();
-        })
-})
+// describe('Multi Tests', function() {
+//     before(function (done) {
+//         mongoose.connect(process.env.MONGO_TEST_PATH);
+//         const db = mongoose.connection;
+//         db.on('error', console.error.bind(console, 'connection error'));
+//         db.once('open', function(){
+//             console.log('We are connected to the test database!');
+//             done();
+//         })
+// })
 
-describe('Test database', function() {
-    it('New Image saved to test database', function(done) {
-        var testImage = Image({
+describe('Test database', function () {
+    it('Two New Images saved to test database', function (done) {
+        var testImage = TestImage({
             name: 'TestImage',
             url: 'www.test.com',
             date: '121212',
             id: '1'
         });
         testImage.save()
-        var testImage2 = Image({
+        var testImage2 = TestImage({
             name: 'TestImage2',
             url: 'www.test2.com',
             date: '222222',
@@ -104,29 +99,26 @@ describe('Test database', function() {
         });
         testImage2.save(done)
     })
-    it('Doesnt save wrong format to db', function(done) {
-        var broKen = Image({
-            notName: 'Whatever',
-            notUrl: 'www.broken.org',
-            notDate: '9',
-            notId: 'nope'
-        })
-        broKen.save(err => {
-            if(err) {return done();}
-            throw new Error('Should make an error');
-        })
-    })
-    it('Should retrevie data from DB', async function(done) {
+    it('Should retrevie all images from DB', async function () {
         const listimages = await listFile.getList()
-        assert(listimages[0].name.length > 0 )
-            done();
-        })
+        assert(listimages[1].name.length > 0)
+
+    })
+})
+// })
+
+describe('Test upload', function(){
+    it('Uploads to s3 and inserts into mongo', async function () {
+        let testFile = '../tree.jpg'
+        const uploadTest = await upChain.upChain(testFile)
+        assert(uploadTest.url.length > 0)
+        // assert(uploadTest._id.length > 0)
     })
 })
 
-after(function(done){
-    mongoose.connection.close(done);
-    })
-
-;
-
+// after(function(done){
+//     // mongoose.connection.db.dropDatabase(function(){
+//         mongoose.connection.close(done);
+//     })
+// })
+// });

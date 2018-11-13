@@ -28,7 +28,7 @@ async function timeOut() {
     })
   } else if (process.argv[2] == 'download') {
     return dl.downloadFile(process.argv[3], process.argv[4]).then(info => {
-      console.log('info')
+      console.log(info)
     }).catch(error => {
       console.error(error);
     })
