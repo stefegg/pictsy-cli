@@ -5,11 +5,17 @@ Install - npm install ./ in the main directory
 Usage - you'll need to create /env/.env and populate it with the following -
 
 BUCKET=
+
 AWS_ACCESS_KEY_ID=
+
 AWS_SECRET_ACCESS_KEY=
+
 MONGO_SECRET=
+
 MONGO_PATH=
+
 DB_COLLECTION=
+
 
 The CLI works with MongoDB and AWS S3 which you'll need to coordinate on your end. Once you've got this all done you can take it for a spin with the following commands.
 
