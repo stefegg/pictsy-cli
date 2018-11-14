@@ -38,3 +38,5 @@ npm start (port # optional) to start. If you don't give it a port #, it'll autom
 /show/:id/ - returns an image by ID.
 
 Sweet.
+
+Really this was a learning experience for me. So mind any rough edges and generally ignore the test directory unless you're going to change more things that I'm not going to mention here yourself.
