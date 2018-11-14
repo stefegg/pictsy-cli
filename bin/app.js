@@ -2,7 +2,7 @@
 
 
 const show = require('../modules/showID.js');
-const dl = require('../lib/download.js');
+const dl = require('../modules/downLoad.js');
 const upchain = require('../modules/upchain.js');
 const list = require('../modules/upList.js');
 
@@ -27,8 +27,8 @@ async function timeOut() {
       console.error(error);
     })
   } else if (process.argv[2] == 'download') {
-    return dl.downloadFile(process.argv[3], process.argv[4]).then(info => {
-      console.log(info)
+    return dl.downLoad(process.argv[3], process.argv[4]).then(info => {
+      console.log('File downloaded to ' + info.path)
     }).catch(error => {
       console.error(error);
     })

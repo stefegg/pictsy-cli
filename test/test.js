@@ -5,6 +5,7 @@ const upChain = require('../modules/upchain.js');
 const dbConn = require('../lib/dbConn.js');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const server = require('../server')
 
 require('dotenv').config({
     path: './env/.env'
@@ -101,6 +102,8 @@ describe('Test upload', function(){
         assert(uploadTest.url.length > 0)
     })
 })
+
+
 
 // after(function(done){
 //     // mongoose.connection.db.dropDatabase(function(){
