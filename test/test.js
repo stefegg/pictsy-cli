@@ -7,18 +7,19 @@ const downLoad = require('../modules/downLoad.js');
 const Image = require('../models/image');
 
 
+
 require('dotenv').config({
     path: './env/.env'
 });
 
-console.log(process.env)
+
 describe('Single Test', function () {
     it('connects to the database', function () {
         const connectDb = dbConn.makeConn()
         assert(connectDb.name == 'testDatabase')
     })
 
-    describe('Test single insertion into database', function () {
+    describe('Test Image insertion into database', function () {
         it('New Image saved to test database', function (done) {
             var testImage = Image({
                 name: 'TestImage',
@@ -26,7 +27,14 @@ describe('Single Test', function () {
                 date: '121212',
                 id: '0'
             });
-            testImage.save(done)
+            testImage.save()
+            var testImage2 = Image({
+                name: 'TestImage2',
+                url: 'www.test.com',
+                date: '121212',
+                id: '0'
+            });
+            testImage2.save(done)
         })
         it('Dont save wrong format to db', function (done) {
             var broKen = Image({
@@ -51,22 +59,6 @@ describe('Single Test', function () {
 })
 
 describe('Test database', function () {
-    it('Two New Images saved to test database', function (done) {
-        var testImage = Image({
-            name: 'TestImage',
-            url: 'www.test.com',
-            date: '121212',
-            id: '1'
-        });
-        testImage.save()
-        var testImage2 = Image({
-            name: 'TestImage2',
-            url: 'www.test2.com',
-            date: '222222',
-            id: '2'
-        });
-        testImage2.save(done)
-    })
     it('Should retrevie all images from DB', async function () {
         const listimages = await listFile.getList()
         assert(listimages[1].name.length > 0)
@@ -92,10 +84,3 @@ describe('Test download', function(){
 })
 
 
-
-// after(function(done){
-//     // mongoose.connection.db.dropDatabase(function(){
-//         mongoose.connection.close(done);
-//     })
-// })
-// });
