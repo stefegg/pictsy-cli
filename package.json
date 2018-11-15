@@ -4,11 +4,11 @@
   "description": "pictys",
   "main": "server.js",
   "bin": {
-    "pictsy": "./bin/app.js"
+    "pictsy": "NODE_ENV=development ./bin/app.js"
   },
   "scripts": {
-    "start": "node server",
-    "test": "mocha"
+    "start": "NODE_ENV=development node server",
+    "test": "NODE_ENV=test mocha"
   },
   "author": "Stevphen",
   "license": "ISC",

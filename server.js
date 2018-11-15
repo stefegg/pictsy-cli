@@ -2,9 +2,7 @@ const express = require('express');
 const showbyID = require('./modules/showID.js');
 const listFile = require('./modules/upList.js');
 const app = express();
-const dbConn = require('./lib/dbConn.js');
 
-dbConn.makeConn;
 
 app.get('/list', function(req, res) {
   return listFile.getList().then(data => {

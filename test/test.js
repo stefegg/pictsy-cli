@@ -3,45 +3,24 @@ const listFile = require('../modules/upList.js');
 const showFile = require('../modules/showID.js');
 const upChain = require('../modules/upchain.js');
 const dbConn = require('../lib/dbConn.js');
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const server = require('../server')
+const downLoad = require('../modules/downLoad.js');
+const Image = require('../models/image');
+
 
 require('dotenv').config({
     path: './env/.env'
 });
 
-
-const testSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    url: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: String,
-        required: true
-    },
-    id: {
-        type: String,
-        required: true
-    }
-});
-
-const TestImage = mongoose.model('TestImage', testSchema);
-
+console.log(process.env)
 describe('Single Test', function () {
     it('connects to the database', function () {
-        const connectDb = dbConn.makeConn
+        const connectDb = dbConn.makeConn()
         assert(connectDb.name == 'testDatabase')
     })
 
     describe('Test single insertion into database', function () {
         it('New Image saved to test database', function (done) {
-            var testImage = TestImage({
+            var testImage = Image({
                 name: 'TestImage',
                 url: 'www.test.com',
                 date: '121212',
@@ -50,7 +29,7 @@ describe('Single Test', function () {
             testImage.save(done)
         })
         it('Dont save wrong format to db', function (done) {
-            var broKen = TestImage({
+            var broKen = Image({
                 notName: 'Whatever',
                 notUrl: 'www.broken.org',
                 notDate: '9',
@@ -73,14 +52,14 @@ describe('Single Test', function () {
 
 describe('Test database', function () {
     it('Two New Images saved to test database', function (done) {
-        var testImage = TestImage({
+        var testImage = Image({
             name: 'TestImage',
             url: 'www.test.com',
             date: '121212',
             id: '1'
         });
         testImage.save()
-        var testImage2 = TestImage({
+        var testImage2 = Image({
             name: 'TestImage2',
             url: 'www.test2.com',
             date: '222222',
@@ -100,6 +79,15 @@ describe('Test upload', function(){
         let testFile = '../tree.jpg'
         const uploadTest = await upChain.upChain(testFile)
         assert(uploadTest.url.length > 0)
+    })
+})
+
+describe('Test download', function(){
+    it('Downloads the target file to the requested path', async function () {
+        let testPic = 'tree.jpg'
+        let testPath = '/home/stef/Desktop/'
+        const dlTest = await downLoad.downLoad(testPic, testPath)
+        assert(dlTest.path.length > 0)
     })
 })
 
