@@ -8,9 +8,7 @@ const Image = require('../models/image');
 
 
 
-require('dotenv').config({
-    path: './env/.env'
-});
+
 
 
 describe('Single Test', function () {

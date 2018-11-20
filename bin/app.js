@@ -5,7 +5,7 @@ const show = require('../modules/showID.js');
 const dl = require('../modules/downLoad.js');
 const upchain = require('../modules/upchain.js');
 const list = require('../modules/upList.js');
-
+require('dotenv').config({ path: '../env/.env' });
 async function timeOut() {
   if (process.argv[2] == 'upload') {
     return upchain.upChain(process.argv[3])
