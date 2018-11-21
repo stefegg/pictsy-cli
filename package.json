@@ -7,7 +7,7 @@
     "pictsy": "./bin/app.js"
   },
   "scripts": {
-    "start": "NODE_ENV=development node server",
+    "start": "node start",
     "test": "NODE_ENV=test mocha"
   },
   "author": "Stevphen",
@@ -15,14 +15,12 @@
   "dependencies": {
     "aws-sdk": "^2.338.0",
     "body-parser": "^1.18.3",
-    "chai": "^4.2.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "mocha": "^5.2.0",
+    "mongodb": "^3.1.10",
     "mongoose": "^5.3.4",
     "nodemon": "^1.18.4",
-    "prettyjson": "^1.2.1",
-    "secure-random": "^1.1.1",
-    "serve": "^10.0.2"
+    "secure-random": "^1.1.1"
   }
 }

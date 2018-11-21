@@ -23,8 +23,7 @@ async function timeOut() {
       console.error(error);
     })
   } else if (process.argv[2] == 'start') {
-    start.starteR()
-    
+    start.startUp();
   }else if (process.argv[2] == 'show') {
     return show.getShow(process.argv[3]).then(info => {
       console.log(info)
