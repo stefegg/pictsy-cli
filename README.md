@@ -31,7 +31,7 @@ Endpoints -
 
 If you start this bad boy up, there are a few endpoints you can hit --
 
-npm start (port # optional) to start. If you don't give it a port #, it'll automatically start on 5000.
+--pictsy start (port # optional) to start. If you don't give it a port #, it'll automatically start on 5000.
 
 /list/ - returns all images in the DB
 

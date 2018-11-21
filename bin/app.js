@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-
-
 const show = require('../modules/showID.js');
 const dl = require('../modules/downLoad.js');
 const upchain = require('../modules/upchain.js');
 const list = require('../modules/upList.js');
-require('dotenv').config({ path: '../env/.env' });
+const start = require('../server.js');
+
+
+// require('dotenv').config({ path: '../env/.env' });
+
 async function timeOut() {
   if (process.argv[2] == 'upload') {
     return upchain.upChain(process.argv[3])
@@ -20,7 +22,10 @@ async function timeOut() {
     }).catch(error => {
       console.error(error);
     })
-  } else if (process.argv[2] == 'show') {
+  } else if (process.argv[2] == 'start') {
+    start.starteR()
+    
+  }else if (process.argv[2] == 'show') {
     return show.getShow(process.argv[3]).then(info => {
       console.log(info)
     }).catch(error => {

@@ -15,9 +15,9 @@ app.get('/show/:id', function(req, res) {
   })
 
 
+module.exports.starteR = function starteR(){  
 var port = process.env.PORT || 5000;
-
 app.listen(port, function(){
-  console.log('server started on port ', port)
+  console.log('server started on port ', port, process.env)
 });
-
+}
