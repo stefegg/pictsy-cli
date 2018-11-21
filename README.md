@@ -2,7 +2,7 @@
 
 Install - npm install ./ in the main directory
 
-Usage - you'll need to create /env/.env and populate it with the following -
+Usage - you'll need to create .env in the root folder and populate it with the following -
 
 BUCKET=
 
@@ -10,16 +10,17 @@ AWS_ACCESS_KEY_ID=
 
 AWS_SECRET_ACCESS_KEY=
 
-MONGO_SECRET=
-
 MONGO_PATH=
+
+MONGO_SECRET=
 
 DB_COLLECTION=
 
+If you do not provide the last 3 values, defaults will be provided for you. The CLI does not work unless the top three AWS values are provided by the user, either in the command line or in the root .env file. 
 
-The CLI works with MongoDB and AWS S3 which you'll need to coordinate on your end. Once you've got this all done you can take it for a spin with the following commands.
+Commands:
 
---pictsy list - lists all images in the DB
+--pictsy list - lists all images in the MongoDB
 
 --pictsy show (id) - find an image by ID
 
@@ -31,7 +32,7 @@ Endpoints -
 
 If you start this bad boy up, there are a few endpoints you can hit --
 
---pictsy start (port # optional) to start. If you don't give it a port #, it'll automatically start on 5000.
+--pictsy start (port # optional) to start. If you don't give it a port # with PORT= , it'll automatically start on 5000.
 
 /list/ - returns all images in the DB
 
@@ -39,4 +40,4 @@ If you start this bad boy up, there are a few endpoints you can hit --
 
 Sweet.
 
-Really this was a learning experience for me. So mind any rough edges and generally ignore the test directory unless you're going to change more things that I'm not going to mention here yourself.
+Really this was a learning experience for me. So mind any rough edges and generally ignore the test directory unless you're going to change more things that I'm not going to mention here.
