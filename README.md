@@ -1,6 +1,6 @@
 # pictsy-cli
 
-Install - npm install ./ in the main directory
+Install - npm install -g ./ in the main directory
 
 Usage - you'll need to create .env in the root folder and populate it with the following -
 
