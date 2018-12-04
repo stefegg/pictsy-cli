@@ -1,5 +1,5 @@
 const dbConn = require('../lib/dbConn.js');
-const show = require ('../lib/show3.js')
+const show = require('../lib/show3.js')
 
 
 module.exports.getShow = async function getShow(id) {
@@ -8,4 +8,3 @@ module.exports.getShow = async function getShow(id) {
     let waitguyse = await dbConn.closeConn();
     return showID;
 }
-

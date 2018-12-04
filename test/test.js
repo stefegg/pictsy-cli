@@ -64,7 +64,7 @@ describe('Test database', function () {
     })
 })
 
-describe('Test upload', function(){
+describe('Test upload', function () {
     it('Uploads to s3 and inserts into mongo', async function () {
         let testFile = '../tree.jpg'
         const uploadTest = await upChain.upChain(testFile)
@@ -72,7 +72,7 @@ describe('Test upload', function(){
     })
 })
 
-describe('Test download', function(){
+describe('Test download', function () {
     it('Downloads the target file to the requested path', async function () {
         let testPic = 'tree.jpg'
         let testPath = '/home/stef/Desktop/'
@@ -80,5 +80,3 @@ describe('Test download', function(){
         assert(dlTest.path.length > 0)
     })
 })
-
-

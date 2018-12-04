@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const show = require('../modules/showID.js');
 const dl = require('../modules/downLoad.js');
 const upchain = require('../modules/upchain.js');
@@ -24,7 +25,7 @@ async function timeOut() {
     })
   } else if (process.argv[2] == 'start') {
     start.startUp();
-  }else if (process.argv[2] == 'show') {
+  } else if (process.argv[2] == 'show') {
     return show.getShow(process.argv[3]).then(info => {
       console.log(info)
     }).catch(error => {
@@ -32,9 +33,9 @@ async function timeOut() {
     })
   } else if (process.argv[2] == 'download') {
     return dl.downLoad(process.argv[3], process.argv[4])
-    .catch(error => {
-      console.error(error);
-    })
+      .catch(error => {
+        console.error(error);
+      })
   } else {
     console.log('Invalid command, see documentation for correct usage')
   }
